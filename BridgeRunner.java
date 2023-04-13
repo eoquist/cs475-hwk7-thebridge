@@ -27,20 +27,18 @@ public class BridgeRunner {
 		// ----- ----- ----- ----- -----
 		// ----- ----- ----- ----- -----
 
-		// TODO - allocate space for threads
 		Thread[] threads = new Thread[num_cars];
 		for (int i = 0; i < num_cars; i++) {
 			// Creating Thread objects -- need to encapsulate a Runnable object
 			int car_id = i;
 			threads[i] = new Thread(new Car(car_id, bridge));
-			
-			// Not a typo -- call start(), not run()
+
 			threads[i].start();
 		}
 
 		// TODO - actual thread stuff here
 
-		// TODO - start then join the threads
+
 		for (int i = 0; i < num_cars; i++) {
 			try {
 				threads[i].join();
