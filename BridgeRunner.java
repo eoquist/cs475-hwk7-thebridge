@@ -5,16 +5,61 @@
 public class BridgeRunner {
 
 	public static void main(String[] args) {
+		// check command line inputs
+		int bridge_limit;
+		int num_cars;
+		if (args.length != 2) {
+            System.out.println("Usage: javac BridgeRunner <bridge limit> <num cars>");
+            return;
+        } else{
+			bridge_limit = Integer.parseInt(args[0]);
+			num_cars = Integer.parseInt(args[1]);
+		}
 
-		// TODO - check command line inputs
+		// instantiate the bridge
+		BridgeRunner.OneLaneBridge bridge = new OneLaneBridge(bridge_limit);
 
-		// TODO - instantiate the bridge
-		
 		// TODO - allocate space for threads
 
 		// TODO - start then join the threads
 
 		System.out.println("All cars have crossed!!");
+	}
+
+	/**
+	 * Description here
+	 */
+	private class OneLaneBridge extends Bridge{
+		protected int max_capacity;
+
+		/** 
+		 * Default Constructor for OneLaneBridge
+		 */
+		public OneLaneBridge(){
+			super();
+		}
+
+		/**
+		 * Constructor for OneLaneBridge
+		 * @param
+		 */
+		public OneLaneBridge(int num){
+			super();
+			this.max_capacity = num;
+		}
+
+		@Override
+		public void arrive(Car car) throws InterruptedException {
+			// TODO
+			throw new UnsupportedOperationException("Unimplemented method 'arrive'");
+		}
+
+		@Override
+		public void exit(Car car) throws InterruptedException {
+			// TODO
+			throw new UnsupportedOperationException("Unimplemented method 'exit'");
+		}
+		
 	}
 
 }
