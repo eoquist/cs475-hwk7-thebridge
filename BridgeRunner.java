@@ -25,8 +25,6 @@ public class BridgeRunner {
 		OneLaneBridge bridge = new OneLaneBridge(bridge_limit);
 
 		// ----- ----- ----- ----- -----
-		// ----- ----- ----- ----- -----
-
 		Thread[] threads = new Thread[num_cars];
 		for (int i = 0; i < num_cars; i++) {
 			// Creating Thread objects -- need to encapsulate a Runnable object
@@ -36,9 +34,6 @@ public class BridgeRunner {
 			threads[i].start();
 		}
 
-		// TODO - actual thread stuff here
-
-
 		for (int i = 0; i < num_cars; i++) {
 			try {
 				threads[i].join();
@@ -46,27 +41,17 @@ public class BridgeRunner {
 				e.printStackTrace();
 			}
 		}
-
-		// ----- ----- ----- ----- -----
 		// ----- ----- ----- ----- -----
 
 		System.out.println("All cars have crossed!!");
 	}
 
 	// ======================================================================================
-	// ======================================================================================
-	// ======================================================================================
 
 	public synchronized void inc() {
 		// do stuff with Counter object locked
 		test_val++;
 		// unlock right before leaving method
-	}
-
-	public int test_val() {
-		// this method doesn't require synchronization
-		// threads don't compete for the monitor lock
-		return test_val;
 	}
 
 	// You can use a synchronized block if only a critical section of code within
