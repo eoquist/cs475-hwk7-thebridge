@@ -31,6 +31,11 @@ public class OneLaneBridge extends Bridge {
     public void arrive(Car car) throws InterruptedException {
         // TODO - OneLaneBridge arrive()
 
+        // check the direction of the bridge
+        // check if the bridge has space
+        // if the arriving car matches the direction of the bridge and there is space for the car, allow the car to enter
+        // if it doesn't then the car must wait
+
         // This method has to determine whether the thread which called it must wait, or
         // is allowed to proceed on to the bridge. Specifically, a car can’t enter the
         // bridge when there are too many cars on it or if it’s going against the
@@ -40,7 +45,8 @@ public class OneLaneBridge extends Bridge {
         // there are no more than 3 cars on the bridge. Finally, increment currentTime
         // by 1.
 
-        // OUTPUT: shows bridge’s current allowed direction, followed by the list of cars currently on the bridge.
+        // OUTPUT: shows bridge’s current allowed direction, followed by the list of
+        // cars currently on the bridge.
     }
 
     /**
@@ -64,11 +70,21 @@ public class OneLaneBridge extends Bridge {
         // signal to other cars that might be waiting to get on the bridge. Do not
         // change currentTime when exiting.
 
-        // OUTPUT: shows bridge’s current allowed direction, followed by the list of cars currently on the bridge.
+        // OUTPUT: shows bridge’s current allowed direction, followed by the list of
+        // cars currently on the bridge.
 
     }
 
-
     // TODO - check outputs section of notes
+
+    /**
+     * This feels wrong
+     * 
+     * @return string representation of OneLaneBridge
+     */
+    @Override
+    public String toString() {
+        return "Bridge (dir=" + this.direction + "):";
+    }
 
 }
