@@ -35,19 +35,14 @@ public class OneLaneBridge extends Bridge {
 
         if (space_on_bridge && car_matches_direction) {
             // TODO - OneLaneBridge arrive()
-            // allow the car to enter
-
-            // When the car is allowed to enter the bridge, use the
-            // car’s setEntryTime(currentTime) method to set the entry time. Add the car to
-            // the bridge list. Then print the bridge list so we can see (and ensure) that
-            // there are no more than 3 cars on the bridge. Finally, increment currentTime
-            // by 1.
+            car.setEntryTime(this.currentTime);
+            this.bridge.add(car);
+            System.out.println(this.bridge.toString());
+            this.currentTime++;
         } else {
             // car must wait
+            car.wait();
         }
-
-        // OUTPUT: shows bridge’s current allowed direction, followed by the list of
-        // cars currently on the bridge.
     }
 
     /**
@@ -58,34 +53,40 @@ public class OneLaneBridge extends Bridge {
      */
     @Override
     public void exit(Car car) throws InterruptedException {
-        // TODO - OneLaneBridge exit()
+        boolean space_on_bridge = this.bridge.size() < this.max_capacity;
+        boolean car_matches_direction = (car.getDirection() == this.direction);
+        boolean car_is_first = (this.bridge.get(0) == car); // idk if this actually works lol
+
+        if (space_on_bridge && car_matches_direction && car_is_first) {
+            // TODO - OneLaneBridge exit()
+            this.bridge.remove(0);
+            System.out.println(this.bridge.toString());
+            // signal to other cars that might be waiting to get on the bridge
+
+        } else{
+            
+        }
 
         // This Bridge method is called by a car when it wants to exit the bridge. But
         // any car can call this method at any time, so we have to put in some “guard
         // rails” to make sure that a car on the bridge can’t just randomly disappear
         // off the bridge when there are still cars in front of it.
 
-        // When it’s the car’s turn to exit the bridge, remove the car from the list.
-        // Then print the bridge list so that we can see there’s one fewer car (and the
-        // car that left had better been at the head of the list!). When a car leaves,
-        // signal to other cars that might be waiting to get on the bridge. Do not
-        // change currentTime when exiting.
-
-        // OUTPUT: shows bridge’s current allowed direction, followed by the list of
-        // cars currently on the bridge.
-
     }
 
     // TODO - check outputs section of notes
 
     /**
-     * This feels wrong
-     * 
+     * TPrint function for the OneLaneBridge class.
      * @return string representation of OneLaneBridge
      */
     @Override
     public String toString() {
-        return "Bridge (dir=" + this.direction + "):";
+        String print_str = "Bridge (dir=" + this.direction + "):";
+        for(Car car : this.bridge){
+            print_str += car.toString();
+        }
+        return print_str;
     }
 
 }
