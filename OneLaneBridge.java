@@ -22,28 +22,29 @@ public class OneLaneBridge extends Bridge {
     }
 
     /**
-     * Handles the arrival of a car to the bridge.
+     * Determines whether the thread which called it must wait, or
+     * if the car is allowed to proceed on to the bridge.
      * 
      * @param car the arriving car
      * @throws InterruptedException if the thread is interrupted
      */
     @Override
     public void arrive(Car car) throws InterruptedException {
-        // TODO - OneLaneBridge arrive()
+        boolean space_on_bridge = this.bridge.size() < this.max_capacity;
+        boolean car_matches_direction = (car.getDirection() == this.direction);
 
-        // check the direction of the bridge
-        // check if the bridge has space
-        // if the arriving car matches the direction of the bridge and there is space for the car, allow the car to enter
-        // if it doesn't then the car must wait
+        if (space_on_bridge && car_matches_direction) {
+            // TODO - OneLaneBridge arrive()
+            // allow the car to enter
 
-        // This method has to determine whether the thread which called it must wait, or
-        // is allowed to proceed on to the bridge. Specifically, a car can’t enter the
-        // bridge when there are too many cars on it or if it’s going against the
-        // current flow of traffic. When the car is allowed to enter the bridge, use the
-        // car’s setEntryTime(currentTime) method to set the entry time. Add the car to
-        // the bridge list. Then print the bridge list so we can see (and ensure) that
-        // there are no more than 3 cars on the bridge. Finally, increment currentTime
-        // by 1.
+            // When the car is allowed to enter the bridge, use the
+            // car’s setEntryTime(currentTime) method to set the entry time. Add the car to
+            // the bridge list. Then print the bridge list so we can see (and ensure) that
+            // there are no more than 3 cars on the bridge. Finally, increment currentTime
+            // by 1.
+        } else {
+            // car must wait
+        }
 
         // OUTPUT: shows bridge’s current allowed direction, followed by the list of
         // cars currently on the bridge.
