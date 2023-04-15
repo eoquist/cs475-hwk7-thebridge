@@ -77,7 +77,7 @@ public class OneLaneBridge extends Bridge {
     // TODO - check outputs section of notes
 
     /**
-     * TPrint function for the OneLaneBridge class.
+     * Print function for the OneLaneBridge class.
      * @return string representation of OneLaneBridge
      */
     @Override
