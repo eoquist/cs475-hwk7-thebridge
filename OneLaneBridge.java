@@ -3,6 +3,7 @@
  */
 public class OneLaneBridge extends Bridge {
     protected int max_capacity;
+    private Object monitor = new Object();
 
     /**
      * Default Constructor for OneLaneBridge
@@ -30,17 +31,20 @@ public class OneLaneBridge extends Bridge {
      */
     @Override
     public void arrive(Car car) throws InterruptedException {
-        boolean space_on_bridge = this.bridge.size() < this.max_capacity;
-        boolean car_matches_direction = (car.getDirection() == this.direction);
+        synchronized(monitor){
+            boolean space_on_bridge = this.bridge.size() < this.max_capacity;
+            boolean car_matches_direction = (car.getDirection() == this.direction);
 
-        if (space_on_bridge && car_matches_direction) {
-            car.setEntryTime(this.currentTime);
-            this.bridge.add(car);
-            System.out.println(this.bridge.toString());
-            this.currentTime++;
-        } else {
-            // car must wait
-            car.wait();
+            if (space_on_bridge && car_matches_direction) {
+                car.setEntryTime(this.currentTime);
+                this.bridge.add(car);
+                System.out.println(this.bridge.toString());
+                this.currentTime++;
+            } else {
+                // car must wait
+                monitor.wait();
+                car.wait();
+            }
         }
     }
 
@@ -52,18 +56,20 @@ public class OneLaneBridge extends Bridge {
      */
     @Override
     public void exit(Car car) throws InterruptedException {
-        boolean space_on_bridge = this.bridge.size() < this.max_capacity;
-        boolean car_matches_direction = (car.getDirection() == this.direction);
-        boolean car_is_first = (this.bridge.get(0) == car); // idk if this actually works lol
+        synchronized(monitor){
+            boolean space_on_bridge = this.bridge.size() < this.max_capacity;
+            boolean car_matches_direction = (car.getDirection() == this.direction);
+            boolean car_is_first = (this.bridge.get(0) == car); // idk if this actually works lol
 
-        if (space_on_bridge && car_matches_direction && car_is_first) {
-            // TODO - OneLaneBridge exit()
-            this.bridge.remove(0);
-            System.out.println(this.bridge.toString());
-            // signal to other cars that might be waiting to get on the bridge
-            car.notifyAll();
-        } else{
-            car.wait();
+            if (space_on_bridge && car_matches_direction && car_is_first) {
+                this.bridge.remove(0);
+                System.out.println(this.bridge.toString());
+                // signal to other cars that might be waiting to get on the bridge
+                car.notifyAll();
+            } else{
+                monitor.wait();
+                car.wait();
+            }
         }
     }
 
@@ -80,5 +86,5 @@ public class OneLaneBridge extends Bridge {
         }
         return print_str;
     }
-    
+
 }
