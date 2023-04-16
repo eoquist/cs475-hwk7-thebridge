@@ -34,7 +34,6 @@ public class OneLaneBridge extends Bridge {
         boolean car_matches_direction = (car.getDirection() == this.direction);
 
         if (space_on_bridge && car_matches_direction) {
-            // TODO - OneLaneBridge arrive()
             car.setEntryTime(this.currentTime);
             this.bridge.add(car);
             System.out.println(this.bridge.toString());
@@ -62,19 +61,12 @@ public class OneLaneBridge extends Bridge {
             this.bridge.remove(0);
             System.out.println(this.bridge.toString());
             // signal to other cars that might be waiting to get on the bridge
-
+            car.notifyAll();
         } else{
-            
+            car.wait();
         }
-
-        // This Bridge method is called by a car when it wants to exit the bridge. But
-        // any car can call this method at any time, so we have to put in some “guard
-        // rails” to make sure that a car on the bridge can’t just randomly disappear
-        // off the bridge when there are still cars in front of it.
-
     }
 
-    // TODO - check outputs section of notes
 
     /**
      * Print function for the OneLaneBridge class.
@@ -88,5 +80,5 @@ public class OneLaneBridge extends Bridge {
         }
         return print_str;
     }
-
+    
 }

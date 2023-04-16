@@ -25,10 +25,8 @@ public class BridgeRunner {
 		// ----- ----- ----- ----- -----
 		Thread[] threads = new Thread[num_cars];
 		for (int i = 0; i < num_cars; i++) {
-			// Creating Thread objects -- need to encapsulate a Runnable object
 			int car_id = i;
 			threads[i] = new Thread(new Car(car_id, bridge));
-
 			threads[i].start();
 		}
 
@@ -40,7 +38,6 @@ public class BridgeRunner {
 			}
 		}
 		// ----- ----- ----- ----- -----
-
 		System.out.println("All cars have crossed!!");
 	}
 
