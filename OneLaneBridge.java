@@ -63,7 +63,11 @@ public class OneLaneBridge extends Bridge {
             if (space_on_bridge && car_matches_direction && car_is_first && !this.bridge.isEmpty()) {
                 this.bridge.remove(0);
                 System.out.println(this.bridge.toString());
+
                 // signal to other cars that might be waiting to get on the bridge
+                if(this.bridge.isEmpty()){
+                    this.direction = !this.direction;
+                }
                 monitor.notifyAll();
             } else{
                 monitor.wait();
