@@ -38,6 +38,8 @@ public class OneLaneBridge extends Bridge {
             if (space_on_bridge && car_matches_direction) {
                 car.setEntryTime(this.currentTime);
                 this.bridge.add(car);
+                // testing string
+                System.out.println("car " + car.getID() + " is now arriving");
                 System.out.println(this.bridge.toString());
                 this.currentTime++;
             } else {
@@ -56,12 +58,13 @@ public class OneLaneBridge extends Bridge {
     @Override
     public void exit(Car car) throws InterruptedException {
         synchronized(monitor){
-            boolean space_on_bridge = this.bridge.size() < this.max_capacity;
             boolean car_matches_direction = (car.getDirection() == this.direction);
             boolean car_is_first = (this.bridge.get(0) == car); // idk if this actually works lol
 
-            if (space_on_bridge && car_matches_direction && car_is_first && !this.bridge.isEmpty()) {
+            if (car_matches_direction && car_is_first && !this.bridge.isEmpty()) {
                 this.bridge.remove(0);
+                // testing string
+                System.out.println("car " + car.getID() + " is now exiting");
                 System.out.println(this.bridge.toString());
 
                 // signal to other cars that might be waiting to get on the bridge
