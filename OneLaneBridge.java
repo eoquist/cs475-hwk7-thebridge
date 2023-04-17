@@ -43,7 +43,6 @@ public class OneLaneBridge extends Bridge {
             } else {
                 // car must wait
                 monitor.wait();
-                car.wait();
             }
         }
     }
@@ -61,14 +60,13 @@ public class OneLaneBridge extends Bridge {
             boolean car_matches_direction = (car.getDirection() == this.direction);
             boolean car_is_first = (this.bridge.get(0) == car); // idk if this actually works lol
 
-            if (space_on_bridge && car_matches_direction && car_is_first) {
+            if (space_on_bridge && car_matches_direction && car_is_first && !this.bridge.isEmpty()) {
                 this.bridge.remove(0);
                 System.out.println(this.bridge.toString());
                 // signal to other cars that might be waiting to get on the bridge
-                car.notifyAll();
+                monitor.notifyAll();
             } else{
                 monitor.wait();
-                car.wait();
             }
         }
     }
