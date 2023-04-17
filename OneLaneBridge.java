@@ -67,7 +67,9 @@ public class OneLaneBridge extends Bridge {
                 // signal to other cars that might be waiting to get on the bridge
                 if(this.bridge.isEmpty()){
                     this.direction = !this.direction;
+                    monitor.notifyAll();
                 }
+
                 monitor.notifyAll();
             } else{
                 monitor.wait();
